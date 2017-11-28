@@ -46,14 +46,14 @@ if ( ! class_exists( 'Menu_Routes' ) ) :
          */
         public function register_routes() {
 
-            register_rest_route( get_plugin_namespace(), '/menus', array(
+            register_rest_route( self::get_plugin_namespace(), '/menus', array(
                 array(
                     'methods' => 'GET',
                     'callback' => 'get_menus'
                 )
                 ));
 
-            register_rest_route( get_plugin_namespace(), '/menus/(?P<id>\d+)', array(
+            register_rest_route( self::get_plugin_namespace(), '/menus/(?P<id>\d+)', array(
                 array(
                     'methods' => 'GET',
                     'callback' => 'get_menu'
@@ -92,5 +92,5 @@ if ( ! class_exists( 'Menu_Routes' ) ) :
 
         //future features: add support for nested menu items and menu location
     }
-    
+
 endif;
