@@ -29,9 +29,11 @@
      */
     function wp_rest_routes_init() {
         $menu_class = new Menu_Routes();
+    
         add_filter( 'rest_api_init', array( $menu_class, 'register_routes' ) );
     }
 
-    add_action( 'init', 'wp_rest_routes_init');
+    add_action( 'init', 'wp_rest_routes_init' );
+
 
 endif;

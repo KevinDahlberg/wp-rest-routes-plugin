@@ -8,6 +8,10 @@
  * URI: https://github.com/nekojira/wp-api-menus
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 if ( ! class_exists( 'Menu_Routes' ) ) :
 
     /**
@@ -36,7 +40,7 @@ if ( ! class_exists( 'Menu_Routes' ) ) :
          */
 
         public static function get_plugin_namespace() {
-            return 'wp-rest-routes/v1';
+            return 'wp-rest-routes/v2';
         }
 
         /** register routes for WP API v2
@@ -49,14 +53,14 @@ if ( ! class_exists( 'Menu_Routes' ) ) :
             register_rest_route( self::get_plugin_namespace(), '/menus', array(
                 array(
                     'methods' => 'GET',
-                    'callback' => 'get_menus'
+                    'callback' => array( $this, 'get_menus' )
                 )
                 ));
 
             register_rest_route( self::get_plugin_namespace(), '/menus/(?P<id>\d+)', array(
                 array(
                     'methods' => 'GET',
-                    'callback' => 'get_menu'
+                    'callback' => array( $this, 'get_menu' )
                 )
                 ));
         }
