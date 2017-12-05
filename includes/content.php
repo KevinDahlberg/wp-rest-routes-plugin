@@ -122,7 +122,7 @@ if ( ! class_exists( 'Content_Routes' ) ) :
             /**
              * Sanitize All Posts
              * 
-             * @since 1.0.2
+             * @since 1.0.4
              * @return Array of posts
              * 
              * This is needed because the REST Api doesn't give you all of the relevent post data, such as
@@ -182,9 +182,13 @@ if ( ! class_exists( 'Content_Routes' ) ) :
                      'slug'             =>  $featured_image['slug'],
                      'title'            =>  $featured_image['title']->rendered,
                      'description'      =>  $featured_image['description']->rendered,
+                     'file'             =>  $featured_image['media_details']->file,
                      'alt_text'         =>  $featured_image['alt_text'],
-                     'media_details'    =>  $featured_image['media_details'],
-                     'post'             =>  $featured_image['post']
+                     'post'             =>  $featured_image['post'],
+                     'width'            =>  $featured_image['media_details']->width,
+                     'height'           =>  $featured_image['media_details']->height,
+                     'sizes'            =>  $featured_image['media_details']->sizes
+
                  );
                  
                 return $sanitized_featured_media;
