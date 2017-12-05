@@ -22,6 +22,7 @@
  include_once 'includes/menus.php';
  include_once 'includes/content.php';
  include_once 'includes/settings.php';
+//  include_once 'includes/widgets.php';
 
  if ( ! function_exists ( 'wp_rest_routes_init' ) ) :
     /**
@@ -52,6 +53,14 @@
     }
 
     add_action( 'init', 'wp_settings_rest_routes_init' );
+
+    // function wp_widgets_rest_routes_init() {
+    //     $widgets_class = new Widget_Routes();
+
+    //     add_filter( 'rest_api_init', array( $widgets_class, 'register_routes' ) );
+    // }
+
+    // add_action( 'init', 'wp_widgets_rest_routes_init' );
 
 
 endif;

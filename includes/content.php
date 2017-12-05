@@ -139,9 +139,20 @@ if ( ! class_exists( 'Content_Routes' ) ) :
 
                     $post_image = self::retrieve_featured_image( $single_post['featured_media'] );
                     
+                    
+                    $sanitized_post = array(
+                        'id'                =>  $single_post['id'],
+                        'date'              =>  $single_post['date'],
+                        'slug'              =>  $single_post['slug'],
+                        'title'             =>  $single_post['title']->rendered,
+                        'content'           =>  $single_post['content']->rendered,
+                        'excerpt'           =>  $single_post['excerpt']->rendered,
+                        'featured_media'    =>  $post_image   
+                    );
+
                     $single_post['featured_media'] =  $post_image;
 
-                    $new_post_array[] = $single_post;
+                    $new_post_array[] = $sanitized_post;
                 }
 
                 return $new_post_array;
@@ -169,8 +180,8 @@ if ( ! class_exists( 'Content_Routes' ) ) :
                      'id'               =>  $featured_image['id'],
                      'date'             =>  $featured_image['date'],
                      'slug'             =>  $featured_image['slug'],
-                     'title'            =>  $featured_image['title'],
-                     'description'      =>  $featured_image['description'],
+                     'title'            =>  $featured_image['title']->rendered,
+                     'description'      =>  $featured_image['description']->rendered,
                      'alt_text'         =>  $featured_image['alt_text'],
                      'media_details'    =>  $featured_image['media_details'],
                      'post'             =>  $featured_image['post']
