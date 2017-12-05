@@ -93,6 +93,11 @@ if ( ! class_exists( 'Content_Routes' ) ) :
             } 
             
             /**
+             * had to use the REST endpoints for this data.  It returns something that is more usable that the
+             * built in get_posts and other functions from Wordpress.
+             */
+
+            /**
              * Get Posts
              * 
              * @since 1.0.2
@@ -113,12 +118,25 @@ if ( ! class_exists( 'Content_Routes' ) ) :
                 return $sanitized_posts;
             }
 
+            /**
+             * Sanitize All Posts
+             * 
+             * @since 1.0.2
+             * @return Array of posts
+             * 
+             * This is needed because the REST Api doesn't give you all of the relevent post data, such as
+             * the featured image.  It was either put this code here, or put it on the front end.  Also, it's
+             * also nice to sanitize the data a bit, so that the object you get to play with on the fron end
+             * doesn't have so much irrelevent crap on it.
+             */
+
             public function sanitize_all_posts( $post_array ) {
                 $new_post_array = array();
 
                 foreach ( $post_array as $post ) {
                     $single_post = (array) $post;
 
+                    //this doesn't give you the info you want.  do a REST request here instead.
                     $post_image = get_the_post_thumbnail( $single_post['id'] );
 
                     $post_image_info = (array) $post_image;
@@ -130,6 +148,17 @@ if ( ! class_exists( 'Content_Routes' ) ) :
 
                 return $new_post_array;
             }
+
+            /**
+             * retrieve featured image
+             * 
+             * @since 1.0.2
+             * @return array with all of the information for the featured image.
+             */
+
+             public function retrieve_featured_image( $id ) {
+                 $base_url = 
+             }
             
             /**
              * All Pages
