@@ -21,6 +21,7 @@
 
  include_once 'includes/menus.php';
  include_once 'includes/content.php';
+ include_once 'includes/settings.php';
 
  if ( ! function_exists ( 'wp_rest_routes_init' ) ) :
     /**
@@ -43,6 +44,14 @@
     }
 
     add_action( 'init', 'wp_content_rest_routes_init' );
+
+    function wp_settings_rest_routes_init() {
+        $settings_class = new Settings_Routes();
+
+        add_filter( 'rest_api_init', array( $settings_class, 'register_routes' ) );
+    }
+
+    add_action( 'init', 'wp_settings_rest_routes_init' );
 
 
 endif;

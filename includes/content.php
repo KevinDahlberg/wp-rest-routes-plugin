@@ -161,9 +161,22 @@ if ( ! class_exists( 'Content_Routes' ) ) :
 
                  $response =  wp_remote_get( $media_url );
 
-                 $featured_image = json_decode( wp_remote_retrieve_body( $response ) );
+                 $featured_media = json_decode( wp_remote_retrieve_body( $response ) );
+
+                 $featured_image = (array) $featured_media;
+
+                 $sanitized_featured_media = array(
+                     'id'               =>  $featured_image['id'],
+                     'date'             =>  $featured_image['date'],
+                     'slug'             =>  $featured_image['slug'],
+                     'title'            =>  $featured_image['title'],
+                     'description'      =>  $featured_image['description'],
+                     'alt_text'         =>  $featured_image['alt_text'],
+                     'media_details'    =>  $featured_image['media_details'],
+                     'post'             =>  $featured_image['post']
+                 );
                  
-                return $featured_image;
+                return $sanitized_featured_media;
              }
             
             /**
