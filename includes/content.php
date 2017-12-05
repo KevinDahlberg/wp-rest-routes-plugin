@@ -161,7 +161,7 @@ if ( ! class_exists( 'Content_Routes' ) ) :
             /**
              * retrieve featured image
              * 
-             * @since 1.0.2
+             * @since 1.0.4
              * @return array with all of the information for the featured image.
              */
 
