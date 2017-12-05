@@ -20,6 +20,7 @@
  }
 
  include_once 'includes/menus.php';
+ include_once 'includes/content.php';
 
  if ( ! function_exists ( 'wp_rest_routes_init' ) ) :
     /**
@@ -27,13 +28,21 @@
      * 
      * @since 1.0
      */
-    function wp_rest_routes_init() {
+    function wp_menu_rest_routes_init() {
         $menu_class = new Menu_Routes();
     
         add_filter( 'rest_api_init', array( $menu_class, 'register_routes' ) );
     }
 
-    add_action( 'init', 'wp_rest_routes_init' );
+    add_action( 'init', 'wp_menu_rest_routes_init' );
+
+    function wp_content_rest_routes_init() {
+        $content_class = new  Content_Routes();
+
+        add_filter( 'rest_api_init', array( $content_class, 'register_routes' ) );
+    }
+
+    add_action( 'init', 'wp_content_rest_routes_init' );
 
 
 endif;
