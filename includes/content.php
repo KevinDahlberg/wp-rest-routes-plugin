@@ -1,6 +1,6 @@
 <?php
 /**
- * Menu Routes
+ * Content Routes
  * 
  * @package WP_REST_ROUTES
  * 
@@ -69,6 +69,7 @@ if ( ! class_exists( 'Content_Routes' ) ) :
                         'callback' => array( $this, 'get_site_content' )
                     )
                     ));
+
             }
 
             /**
@@ -136,14 +137,11 @@ if ( ! class_exists( 'Content_Routes' ) ) :
                 foreach ( $post_array as $post ) {
                     $single_post = (array) $post;
 
-                    //this doesn't give you the info you want.  do a REST request here instead.
-                    $post_image = get_the_post_thumbnail( $single_post['id'] );
+                    $post_image = self::retrieve_featured_image( $single_post['featured_media'] );
+                    
+                    $single_post['featured_media'] =  $post_image;
 
-                    $post_image_info = (array) $post_image;
-
-                    $single_post = array('post image' => $post_image_info);
-
-                    $new_post_array[] = $post_image_info;
+                    $new_post_array[] = $single_post;
                 }
 
                 return $new_post_array;
@@ -157,7 +155,15 @@ if ( ! class_exists( 'Content_Routes' ) ) :
              */
 
              public function retrieve_featured_image( $id ) {
-                 $base_url = 
+                 $base_url = self::get_rest_url();
+                 
+                 $media_url = $base_url . '/media/' . $id;
+
+                 $response =  wp_remote_get( $media_url );
+
+                 $featured_image = json_decode( wp_remote_retrieve_body( $response ) );
+                 
+                return $featured_image;
              }
             
             /**
